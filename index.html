@@ -140,10 +140,11 @@
   .contact-inner p { color: var(--muted); }
   .mail-big {
     font-size: clamp(1.1rem, 3vw, 1.7rem); font-weight: 700;
-    text-decoration: none; letter-spacing: -.01em;
+    text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 2px;
+    letter-spacing: -.01em;
     word-break: break-all;
   }
-  .mail-big:hover { color: var(--accent); text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 2px; }
+  .mail-big:hover { color: var(--accent); }
 
   footer {
     border-top: 1px solid var(--line);
