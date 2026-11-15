@@ -163,16 +163,53 @@
   .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
   /* ---------- galerie ---------- */
-  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  /* Collage: Fotos behalten ihr Format, sitzen versetzt und leicht schräg */
+  .gallery { column-count: 3; column-gap: 1.8rem; padding: .8rem .4rem 0; }
   .gallery .shot {
-    background: rgba(16,16,16,.08);
-    border: 1px solid rgba(16,16,16,.4);
-    aspect-ratio: 4 / 3;
-    display: flex; align-items: center; justify-content: center; text-align: center;
-    color: rgba(16,16,16,.55); font-size: .78rem; letter-spacing: .15em; text-transform: uppercase;
-    padding: 0; overflow: hidden;
+    --r: 0deg;
+    display: block; break-inside: avoid;
+    margin: 0 0 1.8rem;
+    background: var(--ink);            /* "Papierrand" um jedes Foto */
+    padding: .5rem;
+    box-shadow: 6px 6px 0 #101010;     /* harter Schatten, kantig & roh */
+    transform: rotate(var(--r));
+    transition: transform .22s ease, box-shadow .22s ease;
+    cursor: zoom-in;
   }
-  .gallery .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery .shot:nth-child(6n+1) { --r: -2.2deg; }
+  .gallery .shot:nth-child(6n+2) { --r:  1.6deg; }
+  .gallery .shot:nth-child(6n+3) { --r: -1.2deg; }
+  .gallery .shot:nth-child(6n+4) { --r:  2.1deg; }
+  .gallery .shot:nth-child(6n+5) { --r: -1.8deg; }
+  .gallery .shot:nth-child(6n+6) { --r:  1.3deg; }
+  .gallery .shot:hover, .gallery .shot:focus-visible {
+    transform: rotate(0deg) scale(1.04);
+    box-shadow: 10px 10px 0 #101010;
+    position: relative; z-index: 2;
+    outline: none;
+  }
+  .gallery .shot img { width: 100%; height: auto; display: block; }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(10,10,10,.94);
+    display: none; align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 100%; display: block; box-shadow: 8px 8px 0 var(--accent); }
+  .lightbox button {
+    position: absolute; background: none; border: 0; cursor: pointer;
+    color: var(--ink); font-size: 2.6rem; line-height: 1; padding: .6rem 1rem;
+  }
+  .lightbox button:hover { color: var(--accent); }
+  .lightbox .lb-close { top: .6rem; right: .8rem; }
+  .lightbox .lb-prev  { left: .4rem;  top: 50%; transform: translateY(-50%); }
+  .lightbox .lb-next  { right: .4rem; top: 50%; transform: translateY(-50%); }
+  @media (prefers-reduced-motion: reduce) {
+    .gallery .shot { transition: none; }
+  }
 
   /* ---------- folge uns ---------- */
   .follow { text-align: center; }
@@ -203,7 +240,9 @@
   .yellow .mail-big:hover { color: #101010; opacity: .7; }
 
   @media (max-width: 760px) {
-    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .gallery { column-count: 2; column-gap: 1.2rem; padding: .5rem .3rem 0; }
+    .gallery .shot { margin-bottom: 1.2rem; padding: .35rem; box-shadow: 4px 4px 0 #101010; }
+    .lightbox { padding: 1rem; }
     .two-col, .contact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
     .providers { grid-template-columns: 1fr; }
     .gig { grid-template-columns: 1fr; gap: .4rem; }
@@ -308,21 +347,30 @@
      04 GALERIE — 6 Fotos
      Foto tauschen: Datei galerie1.jpg ... galerie6.jpg auf GitHub
      hochladen (Add file → Upload files) und die alte Datei ersetzen.
-     Fehlt eine Datei, bleibt die Box einfach leer.
+     Fehlt eine Datei, wird die Box automatisch ausgeblendet.
+     Die Fotos dürfen Hoch- oder Querformat sein, nichts wird beschnitten.
      ============================================================ -->
 <section id="galerie" class="yellow">
     <div class="container">
       <div class="sec-head"><span class="sec-num">04</span><h2>galerie</h2></div>
       <div class="gallery">
-        <div class="shot"><img src="galerie1.jpg" alt="bellalebwohl Galerie 1" loading="lazy" onerror="this.style.display='none'" /></div>
-        <div class="shot"><img src="galerie2.jpg" alt="bellalebwohl Galerie 2" loading="lazy" onerror="this.style.display='none'" /></div>
-        <div class="shot"><img src="galerie3.jpg" alt="bellalebwohl Galerie 3" loading="lazy" onerror="this.style.display='none'" /></div>
-        <div class="shot"><img src="galerie4.jpg" alt="bellalebwohl Galerie 4" loading="lazy" onerror="this.style.display='none'" /></div>
-        <div class="shot"><img src="galerie5.jpg" alt="bellalebwohl Galerie 5" loading="lazy" onerror="this.style.display='none'" /></div>
-        <div class="shot"><img src="galerie6.jpg" alt="bellalebwohl Galerie 6" loading="lazy" onerror="this.style.display='none'" /></div>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 1 vergrößern"><img src="galerie1.jpg" alt="bellalebwohl Galerie 1" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 2 vergrößern"><img src="galerie2.jpg" alt="bellalebwohl Galerie 2" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 3 vergrößern"><img src="galerie3.jpg" alt="bellalebwohl Galerie 3" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 4 vergrößern"><img src="galerie4.jpg" alt="bellalebwohl Galerie 4" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 5 vergrößern"><img src="galerie5.jpg" alt="bellalebwohl Galerie 5" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 6 vergrößern"><img src="galerie6.jpg" alt="bellalebwohl Galerie 6" onerror="this.parentNode.style.display='none'" /></figure>
       </div>
     </div>
   </section>
+
+<!-- Lightbox: Klick auf ein Galeriefoto zeigt es groß -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto-Ansicht">
+  <button class="lb-close" aria-label="Schließen">&times;</button>
+  <button class="lb-prev" aria-label="Voriges Foto">&#8249;</button>
+  <img id="lb-img" alt="" />
+  <button class="lb-next" aria-label="Nächstes Foto">&#8250;</button>
+</div>
 
 <!-- ============================================================
      05 TERMINE — Konzerttermine
@@ -415,6 +463,49 @@
       <div class="venue"><strong>${t.ort}</strong><span>${t.info}</span></div>
       ${t.tag ? `<span class="tag">${t.tag}</span>` : ""}
     </div>`).join("");
+
+  /* ---------- Galerie-Lightbox ---------- */
+  (function () {
+    const box = document.getElementById("lightbox");
+    const big = document.getElementById("lb-img");
+    const shots = () => [...document.querySelectorAll(".gallery .shot")].filter(s => s.style.display !== "none");
+    let idx = 0;
+
+    function show(i) {
+      const list = shots();
+      if (!list.length) return;
+      idx = (i + list.length) % list.length;
+      const img = list[idx].querySelector("img");
+      big.src = img.src; big.alt = img.alt;
+    }
+    function open(i) { show(i); box.classList.add("open"); document.body.style.overflow = "hidden"; }
+    function close() { box.classList.remove("open"); document.body.style.overflow = ""; }
+
+    document.querySelectorAll(".gallery .shot").forEach(s => {
+      const go = () => open(shots().indexOf(s));
+      s.addEventListener("click", go);
+      s.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    });
+    box.querySelector(".lb-close").addEventListener("click", close);
+    box.querySelector(".lb-prev").addEventListener("click", e => { e.stopPropagation(); show(idx - 1); });
+    box.querySelector(".lb-next").addEventListener("click", e => { e.stopPropagation(); show(idx + 1); });
+    box.addEventListener("click", e => { if (e.target === box) close(); });
+    document.addEventListener("keydown", e => {
+      if (!box.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") show(idx - 1);
+      if (e.key === "ArrowRight") show(idx + 1);
+    });
+    /* Wischen auf dem Handy */
+    let x0 = null;
+    box.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+    box.addEventListener("touchend", e => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) show(dx < 0 ? idx + 1 : idx - 1);
+      x0 = null;
+    });
+  })();
 </script>
 
 </body>
