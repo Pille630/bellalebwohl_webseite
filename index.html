@@ -127,6 +127,8 @@
   .gig .date small { display: block; color: var(--muted); font-weight: 400; font-size: .78rem; }
   .gig .venue strong { display: block; font-weight: 600; }
   .gig .venue span { color: var(--muted); font-size: .85rem; }
+  .gig .gig-link { display: block; width: fit-content; margin-top: .5rem; color: var(--accent); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; text-decoration: underline; text-underline-offset: .25em; }
+  .gig .gig-link:hover { color: var(--ink); }
   .gig .tag {
     font-size: .7rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
     border: 1px solid var(--line); padding: .3rem .7rem; color: var(--muted);
@@ -489,7 +491,9 @@
      ============================================================ -->
 <script>
   const TERMINE = [
-    // { datum: "21.03.2027", zeit: "Sa · ab 20:00", ort: "Veranstaltungsort, Stadt", info: "Kurzbeschreibung / Support-Act", tag: "" },
+    // Vorlage (ohne // kopieren): link ist optional, tag ist optional
+    // { datum: "21.03.2027", zeit: "Sa · ab 20:00", ort: "Veranstaltungsort, Stadt", info: "Kurzbeschreibung / Support-Act", tag: "", link: "https://..." },
+    { datum: "21.02.2027", zeit: "So · 19:30 Uhr", ort: "Fuhrmannshaus", info: "mit Vorband", tag: "", link: "https://altes-fuhrmannshaus.metro.bar/?lang=de#events" },
   ];
 
   (function () {
@@ -517,7 +521,7 @@
     liste.innerHTML = kommend.map(t => `
       <div class="gig">
         <div class="date">${t.datum} <small>${t.zeit || ""}</small></div>
-        <div class="venue"><strong>${t.ort || ""}</strong><span>${t.info || ""}</span></div>
+        <div class="venue"><strong>${t.ort || ""}</strong><span>${t.info || ""}</span>${t.link ? `<a class="gig-link" href="${t.link}" target="_blank" rel="noopener noreferrer">Zum Veranstalter ↗</a>` : ""}</div>
         ${t.tag ? `<span class="tag">${t.tag}</span>` : ""}
       </div>`).join("");
   })();
