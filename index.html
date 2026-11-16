@@ -88,6 +88,7 @@
     box-shadow: 6px 6px 0 #101010;
     transform: rotate(-1.4deg);
     transition: transform .22s ease, box-shadow .22s ease;
+    cursor: zoom-in;
   }
   .bandphoto:hover { transform: rotate(0deg) scale(1.02); box-shadow: 10px 10px 0 #101010; }
   @media (prefers-reduced-motion: reduce) { .bandphoto { transition: none; } }
@@ -205,6 +206,7 @@
     padding: 2rem;
   }
   .lightbox.open { display: flex; }
+  .lightbox.single .lb-prev, .lightbox.single .lb-next { display: none; }
   .lightbox img { max-width: 100%; max-height: 100%; display: block; box-shadow: 8px 8px 0 var(--accent); }
   .lightbox button {
     position: absolute; background: none; border: 0; cursor: pointer;
@@ -312,7 +314,7 @@
           <p><strong>Ohrwürmer, Hymnen, Kneipenchor-Romantik und tanzende Beine</strong> stehen bei bellalebwohl unter Garantie.</p>
         </div>
         <div>
-          <img class="bandphoto" src="bandfoto.jpg" alt="bellalebwohl Bandfoto" />
+          <img class="bandphoto" src="bandfoto.jpg" alt="bellalebwohl Bandfoto" tabindex="0" role="button" aria-label="Bandfoto vergrößern" />
           <p class="photo-note">bellalebwohl — 2025</p>
         </div>
       </div>
@@ -495,24 +497,36 @@
   (function () {
     const box = document.getElementById("lightbox");
     const big = document.getElementById("lb-img");
+    const band = document.querySelector(".bandphoto");
     const shots = () => [...document.querySelectorAll(".gallery .shot")].filter(s => s.style.display !== "none");
+    let single = false;   // true = nur das Bandfoto (ohne Blättern)
     let idx = 0;
 
     function show(i) {
-      const list = shots();
+      const list = single ? [band] : shots();
       if (!list.length) return;
       idx = (i + list.length) % list.length;
-      const img = list[idx].querySelector("img");
+      const img = list[idx].tagName === "IMG" ? list[idx] : list[idx].querySelector("img");
       big.src = img.src; big.alt = img.alt;
     }
-    function open(i) { show(i); box.classList.add("open"); document.body.style.overflow = "hidden"; }
+    function open(i) {
+      show(i);
+      box.classList.toggle("single", single);
+      box.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
     function close() { box.classList.remove("open"); document.body.style.overflow = ""; }
 
     document.querySelectorAll(".gallery .shot").forEach(s => {
-      const go = () => open(shots().indexOf(s));
+      const go = () => { single = false; open(shots().indexOf(s)); };
       s.addEventListener("click", go);
       s.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
     });
+    if (band) {
+      const goBand = () => { single = true; open(0); };
+      band.addEventListener("click", goBand);
+      band.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); goBand(); } });
+    }
     box.querySelector(".lb-close").addEventListener("click", close);
     box.querySelector(".lb-prev").addEventListener("click", e => { e.stopPropagation(); show(idx - 1); });
     box.querySelector(".lb-next").addEventListener("click", e => { e.stopPropagation(); show(idx + 1); });
