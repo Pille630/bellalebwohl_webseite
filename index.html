@@ -259,6 +259,7 @@
     .two-col, .contact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
     .providers { grid-template-columns: 1fr; }
     .gig { grid-template-columns: 1fr; gap: .4rem; }
+    .gig .tag { justify-self: start; margin-top: .4rem; }
     .hero { padding: 4.5rem 0 3.5rem; }
     .nav ul { gap: .5rem 1rem; flex-wrap: wrap; justify-content: center; padding: 0 1rem; }
     .nav ul a { font-size: .72rem; }
@@ -494,6 +495,9 @@
     // Vorlage (ohne // kopieren): link ist optional, tag ist optional
     // { datum: "21.03.2027", zeit: "Sa · ab 20:00", ort: "Veranstaltungsort, Stadt", info: "Kurzbeschreibung / Support-Act", tag: "", link: "https://..." },
     { datum: "21.02.2027", zeit: "So · 19:30 Uhr", ort: "Fuhrmannshaus", info: "mit Vorband", tag: "", link: "https://altes-fuhrmannshaus.metro.bar/?lang=de#events" },
+    // BEISPIEL-TERMINE (nur zur Ansicht, bitte löschen):
+    { datum: "13.03.2027", zeit: "Sa · ab 20:00", ort: "Beispiel-Club, Stuttgart", info: "Eintritt frei, bitte reservieren", tag: "Beispiel" },
+    { datum: "24.04.2027", zeit: "Sa · ab 21:30 Uhr", ort: "Beispiel-Festival, Tübingen", info: "mit Support-Act", tag: "Ausverkauft", link: "https://example.com" },
   ];
 
   (function () {
