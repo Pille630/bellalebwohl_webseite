@@ -118,6 +118,9 @@
     border-bottom: 1px solid var(--line);
     transition: background .15s;
   }
+  .gig-count { color: var(--accent); font-size: .8rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1rem; }
+  .gig-count:empty { display: none; }
+  .gig-empty { color: var(--muted); font-size: 1.05rem; padding: 1.5rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .gig:first-of-type { border-top: 1px solid var(--line); }
   .gig:hover { background: var(--panel); }
   .gig .date { font-weight: 700; font-size: 1rem; }
@@ -391,6 +394,7 @@
     <div class="container">
       <div class="sec-head"><span class="sec-num">05</span><h2>termine</h2></div>
       <!-- Wird automatisch aus der TERMINE-Liste unten im <script> gefüllt -->
+      <p id="gig-count" class="gig-count"></p>
       <div id="gig-list"></div>
     </div>
   </section>
@@ -476,22 +480,47 @@
 <!-- ============================================================
      TERMINE PFLEGEN — HIER TERMINE EINTRAGEN / ENTFERNEN
      Ein Eintrag pro Termin, eine Zeile pro Termin.
-     Kopiere eine bestehende Zeile, ändere die Werte, speichern.
-     "tag" kann weggelassen werden (dann einfach tag: "" schreiben).
+     Zum Eintragen die Beispielzeile unten (ohne die // davor) in die
+     Liste kopieren und die Werte ändern. Zum Löschen die Zeile entfernen.
+     Datum immer als TT.MM.JJJJ, z. B. 21.03.2027.
+     Termine in der Vergangenheit werden automatisch ausgeblendet.
+     Ist die Liste leer, steht dort "Aktuell keine Termine".
+     "tag" ist optional (z. B. "Ausverkauft"), sonst tag: "" lassen.
      ============================================================ -->
 <script>
   const TERMINE = [
-    { datum: "TT.MM.JJJJ", zeit: "Tag · ab 20:00", ort: "Veranstaltungsort, Stadt", info: "Kurzbeschreibung / Support-Act", tag: "Platzhalter" },
-    { datum: "TT.MM.JJJJ", zeit: "Tag · ab 21:00", ort: "Festival / Location, Stadt", info: "weitere Infos folgen", tag: "Platzhalter" },
-    { datum: "TT.MM.JJJJ", zeit: "Tag · ab 19:00", ort: "Kneipenkonzert, Stuttgart", info: "Eintritt frei, bitte reservieren", tag: "Platzhalter" },
+    // { datum: "21.03.2027", zeit: "Sa · ab 20:00", ort: "Veranstaltungsort, Stadt", info: "Kurzbeschreibung / Support-Act", tag: "" },
   ];
 
-  document.getElementById("gig-list").innerHTML = TERMINE.map(t => `
-    <div class="gig">
-      <div class="date">${t.datum} <small>${t.zeit}</small></div>
-      <div class="venue"><strong>${t.ort}</strong><span>${t.info}</span></div>
-      ${t.tag ? `<span class="tag">${t.tag}</span>` : ""}
-    </div>`).join("");
+  (function () {
+    // Datum "TT.MM.JJJJ" in ein Datum umwandeln (null, falls ungültig)
+    const parse = d => {
+      const m = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec((d || "").trim());
+      return m ? new Date(+m[3], +m[2] - 1, +m[1]) : null;
+    };
+    const heute = new Date(); heute.setHours(0, 0, 0, 0);
+
+    // nur kommende Termine, nach Datum sortiert
+    const kommend = TERMINE
+      .filter(t => { const d = parse(t.datum); return !d || d >= heute; })
+      .sort((a, b) => (parse(a.datum) || 0) - (parse(b.datum) || 0));
+
+    const liste = document.getElementById("gig-list");
+    const zahl = document.getElementById("gig-count");
+
+    if (!kommend.length) {
+      zahl.textContent = "";
+      liste.innerHTML = `<p class="gig-empty">Aktuell keine Termine</p>`;
+      return;
+    }
+    zahl.textContent = kommend.length === 1 ? "1 Termin" : kommend.length + " Termine";
+    liste.innerHTML = kommend.map(t => `
+      <div class="gig">
+        <div class="date">${t.datum} <small>${t.zeit || ""}</small></div>
+        <div class="venue"><strong>${t.ort || ""}</strong><span>${t.info || ""}</span></div>
+        ${t.tag ? `<span class="tag">${t.tag}</span>` : ""}
+      </div>`).join("");
+  })();
 
   /* ---------- Galerie-Lightbox ---------- */
   (function () {
