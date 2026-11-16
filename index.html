@@ -118,6 +118,7 @@
     border-bottom: 1px solid var(--line);
     transition: background .15s;
   }
+  .press-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
   .gig-count { color: var(--accent); font-size: .8rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1rem; }
   .gig-count:empty { display: none; }
   .gig-empty { color: var(--muted); font-size: 1.05rem; padding: 1.5rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -427,18 +428,20 @@
 
 <!-- ============================================================
      07 PRESSE — Download des Pressekits
-     Pressekit auf GitHub hochladen (Add file → Upload files) und
-     als pressekit.pdf benennen. Soll es eine ZIP-Datei sein, unten
-     bei href den Dateinamen anpassen (z. B. pressekit.zip).
+     Zwei Downloads: Pressetext (PDF) und Pressefotos (ZIP).
+     Zum Austauschen die neue Datei auf GitHub hochladen
+     (Add file → Upload files). Bei neuem Dateinamen unten bei href
+     den Namen anpassen.
      ============================================================ -->
 <section id="presse">
     <div class="container contact-inner">
       <div>
         <div class="sec-head" style="margin-bottom:1.2rem"><span class="sec-num">07</span><h2>presse</h2></div>
-        <p>Alles für Presse und Veranstalter: Infos, Fotos und Logos zum Download.</p>
+        <p>Alles für Presse und Veranstalter: Pressetext und Pressefotos zum Download.</p>
       </div>
-      <div>
-        <a class="btn solid" href="pressekit.pdf" download>Pressekit herunterladen</a>
+      <div class="press-btns">
+        <a class="btn solid" href="01_Bellalebwohl_Pressetext_250921.pdf" download>Pressetext (PDF)</a>
+        <a class="btn line" href="Bellalebwohl_Pressebilder.zip" download>Pressefotos (ZIP)</a>
       </div>
     </div>
   </section>
