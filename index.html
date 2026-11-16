@@ -119,8 +119,6 @@
     transition: background .15s;
   }
   .press-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .gig-count { color: var(--accent); font-size: .8rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1rem; }
-  .gig-count:empty { display: none; }
   .gig-empty { color: var(--muted); font-size: 1.05rem; padding: 1.5rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .gig:first-of-type { border-top: 1px solid var(--line); }
   .gig:hover { background: var(--panel); }
@@ -397,7 +395,6 @@
     <div class="container">
       <div class="sec-head"><span class="sec-num">05</span><h2>termine</h2></div>
       <!-- Wird automatisch aus der TERMINE-Liste unten im <script> gefüllt -->
-      <p id="gig-count" class="gig-count"></p>
       <div id="gig-list"></div>
     </div>
   </section>
@@ -513,14 +510,11 @@
       .sort((a, b) => (parse(a.datum) || 0) - (parse(b.datum) || 0));
 
     const liste = document.getElementById("gig-list");
-    const zahl = document.getElementById("gig-count");
 
     if (!kommend.length) {
-      zahl.textContent = "";
       liste.innerHTML = `<p class="gig-empty">Aktuell keine Termine</p>`;
       return;
     }
-    zahl.textContent = kommend.length === 1 ? "1 Termin" : kommend.length + " Termine";
     liste.innerHTML = kommend.map(t => `
       <div class="gig">
         <div class="date">${t.datum} <small>${t.zeit || ""}</small></div>
