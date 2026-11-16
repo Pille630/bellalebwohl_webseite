@@ -80,14 +80,18 @@
   .two-col p + p { margin-top: 1.1rem; }
   .two-col p { color: var(--muted); }
   .two-col p strong { color: var(--ink); }
+  /* Bandfoto im gleichen Stil wie die Galerie: Papierrand, harter Schatten, leicht schräg */
   .bandphoto {
-    width: 100%; display: block;
-    border: 1px solid var(--line);
-    background: var(--panel);
-    min-height: 260px;
-    object-fit: cover;
+    width: 100%; height: auto; display: block;
+    box-sizing: border-box;
+    background: var(--ink); padding: .5rem;
+    box-shadow: 6px 6px 0 #101010;
+    transform: rotate(-1.4deg);
+    transition: transform .22s ease, box-shadow .22s ease;
   }
-  .photo-note { margin-top: .6rem; font-size: .75rem; color: var(--muted); letter-spacing: .05em; }
+  .bandphoto:hover { transform: rotate(0deg) scale(1.02); box-shadow: 10px 10px 0 #101010; }
+  @media (prefers-reduced-motion: reduce) { .bandphoto { transition: none; } }
+  .photo-note { margin-top: 1.3rem; font-size: .75rem; color: var(--muted); letter-spacing: .05em; }
 
   /* ---------- releases ---------- */
   .providers {
@@ -232,7 +236,6 @@
   section.yellow { background: var(--accent); border-top: none; }
   .yellow h2, .yellow .sec-num,
   .yellow p, .yellow p strong { color: #101010; }
-  .yellow .bandphoto { border-color: #101010; background: rgba(16,16,16,.08); }
   .yellow .photo-note { color: rgba(16,16,16,.65); }
   .yellow .gig { border-color: rgba(16,16,16,.4); }
   .yellow .gig:hover { background: rgba(16,16,16,.07); }
@@ -245,6 +248,7 @@
   @media (max-width: 760px) {
     .gallery { column-count: 2; column-gap: 1.2rem; padding: .5rem .3rem 0; }
     .gallery .shot { margin-bottom: 1.2rem; padding: .35rem; box-shadow: 4px 4px 0 #101010; }
+    .bandphoto { padding: .35rem; box-shadow: 4px 4px 0 #101010; }
     .lightbox { padding: 1rem; }
     .two-col, .contact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
     .providers { grid-template-columns: 1fr; }
