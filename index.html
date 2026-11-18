@@ -317,11 +317,22 @@
   .js-anim h2.reveal.in { opacity: 1; scale: 1; rotate: 0deg; }
 
   /* "nicht stillhalten" zittert */
-  .statement p em { display: inline-block; animation: zittern .6s steps(1, end) infinite; }
-  @keyframes zittern {
-    0%   { transform: rotate(-1.4deg) translate(0, 0); }
-    33%  { transform: rotate(1.2deg) translate(1px, -1px); }
-    66%  { transform: rotate(-.5deg) translate(-1px, 1px); }
+  /* Jedes Wort zittert für sich, mit eigenem Takt und eigener Richtung */
+  .statement p em span { display: inline-block; }
+  .statement p em .z1 { animation: zittern1 .52s steps(1, end) infinite; }
+  .statement p em .z2 { animation: zittern2 .71s steps(1, end) infinite .17s; }
+  @keyframes zittern1 {
+    0%   { transform: rotate(-3deg) translate(-1px, 1px); }
+    25%  { transform: rotate(2.2deg) translate(2px, -2px); }
+    50%  { transform: rotate(-1deg) translate(-2px, -1px); }
+    75%  { transform: rotate(3.2deg) translate(1px, 2px); }
+  }
+  @keyframes zittern2 {
+    0%   { transform: rotate(2deg) translate(1px, -1px); }
+    20%  { transform: rotate(-2.8deg) translate(-2px, 2px); }
+    45%  { transform: rotate(1deg) translate(2px, 1px); }
+    70%  { transform: rotate(-1.6deg) translate(-1px, -2px); }
+    85%  { transform: rotate(2.6deg) translate(1px, 1px); }
   }
 
   /* mehr Reaktion beim Darüberfahren */
@@ -332,7 +343,7 @@
     .reveal { opacity: 1 !important; translate: none !important; scale: none !important; rotate: none !important; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .statement p em { animation: none; }
+    .statement p em .z1, .statement p em .z2 { animation: none; }
     .btn:hover, .nav ul a:hover, .gig:hover, .provider:hover, .follow a.icon:hover { transform: none; }
   }
 </style>
@@ -479,7 +490,7 @@
      ============================================================ -->
 <div class="statement">
     <div class="container">
-      <p>Kneipenchöre. <span class="hand">Hymnen.</span> Ohrwürmer.<br>Und Beine, die <em>nicht stillhalten</em>.</p>
+      <p>Kneipenchöre. <span class="hand">Hymnen.</span> Ohrwürmer.<br>Und Beine, die <em><span class="z1">nicht</span> <span class="z2">stillhalten</span></em>.</p>
     </div>
   </div>
 
