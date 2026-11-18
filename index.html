@@ -299,26 +299,9 @@
     h2 { transform: rotate(-1.2deg); }
   }
   /* ============================================================
-     BEWEGUNG — Laufband, Einblenden, Wippen, Zittern, Hover
+     BEWEGUNG — Einblenden, Zittern, Hover
      Alles wird bei "Bewegung reduzieren" (Betriebssystem) abgeschaltet.
      ============================================================ */
-
-  /* Laufband: schräges "Klebeband" zwischen Startbereich und Band-Box */
-  .marquee { position: relative; z-index: 3; overflow: hidden; padding: 1.3rem 0; margin: -1.6rem 0; }
-  .marquee-strip {
-    width: 104%; margin-left: -2%; transform: rotate(-1.2deg);
-    background: var(--ink); color: #101010;
-    border-top: 2px solid #101010; border-bottom: 2px solid #101010;
-    padding: .65rem 0; white-space: nowrap; overflow: hidden;
-    box-shadow: 0 5px 0 rgba(0,0,0,.45);
-  }
-  .marquee-track { display: inline-flex; animation: marquee 34s linear infinite; will-change: transform; }
-  .marquee-track .mq {
-    padding-right: 1.4rem; font-weight: 800; font-size: .95rem;
-    letter-spacing: .12em; text-transform: uppercase;
-  }
-  .marquee:hover .marquee-track { animation-play-state: paused; }
-  @keyframes marquee { to { transform: translateX(-50%); } }
 
   /* Einblenden beim Scrollen: Überschriften "klatschen" rein, der Rest rutscht mit Ruck ein */
   .js-anim .reveal {
@@ -332,16 +315,6 @@
     transition: opacity .2s ease, scale .45s cubic-bezier(.2, 1.6, .4, 1), rotate .45s cubic-bezier(.2, 1.6, .4, 1);
   }
   .js-anim h2.reveal.in { opacity: 1; scale: 1; rotate: 0deg; }
-
-  /* Logo wippt alle paar Sekunden kurz */
-  .hero-logo { transform-origin: 50% 85%; animation: wippen 7s ease-in-out 2.5s infinite; }
-  @keyframes wippen {
-    0%, 84%, 100% { transform: none; }
-    87% { transform: rotate(-3.5deg) scale(1.03); }
-    90% { transform: rotate(3deg) scale(1.03); }
-    93% { transform: rotate(-1.8deg); }
-    96% { transform: rotate(1deg); }
-  }
 
   /* "nicht stillhalten" zittert */
   .statement p em { display: inline-block; animation: zittern .6s steps(1, end) infinite; }
@@ -359,11 +332,8 @@
     .reveal { opacity: 1 !important; translate: none !important; scale: none !important; rotate: none !important; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-logo, .statement p em { animation: none; }
+    .statement p em { animation: none; }
     .btn:hover, .nav ul a:hover, .gig:hover, .provider:hover, .follow a.icon:hover { transform: none; }
-    .marquee-track { display: block; animation: none; }
-    .marquee-strip { white-space: normal; text-align: center; padding: .65rem 1rem; }
-    .marquee-track .mq + .mq { display: none; }
   }
 </style>
 </head>
@@ -408,18 +378,6 @@
       <a class="btn line" href="#termine">Termine</a>
     </div>
   </div>
-
-<!-- ============================================================
-     LAUFBAND — Text hier ändern (steht zweimal, damit es nahtlos läuft)
-     ============================================================ -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-strip">
-    <div class="marquee-track">
-      <span class="mq">bellalebwohl ★ postfolk aus bella benztown ★ kantig, roh &amp; tanzbar ★ ska · off-beat · gypsy · balkan · swing · folkpunk ★ ohrwürmer garantiert ★</span>
-      <span class="mq">bellalebwohl ★ postfolk aus bella benztown ★ kantig, roh &amp; tanzbar ★ ska · off-beat · gypsy · balkan · swing · folkpunk ★ ohrwürmer garantiert ★</span>
-    </div>
-  </div>
-</div>
 
 <!-- ============================================================
      02 DIE BAND — Text + Bandfoto
