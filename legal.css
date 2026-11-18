@@ -1,0 +1,49 @@
+/* Gemeinsames Design für Impressum und Datenschutz */
+:root {
+  --bg: #101010;
+  --panel: #171717;
+  --ink: #f2efe9;
+  --muted: #9a958c;
+  --line: #2a2a2a;
+  --accent: #e8d33a;
+}
+@font-face {
+  font-family: 'Knewave';
+  src: url('fonts/knewave-latin-400-normal.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.65; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 1.4rem; }
+.top { border-bottom: 1px solid var(--line); padding: 1.1rem 0; }
+.top .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.top a { color: var(--muted); text-decoration: none; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; }
+.top a:hover { color: var(--accent); }
+.top .logo { color: var(--ink); font-weight: 800; letter-spacing: .04em; }
+main { padding: 3.5rem 0 4.5rem; }
+h1 {
+  font-family: 'Knewave', 'Segoe Print', 'Bradley Hand', cursive;
+  font-weight: 400; font-size: clamp(2.2rem, 7vw, 3.4rem); line-height: 1.15;
+  letter-spacing: .01em; text-transform: lowercase;
+  margin-bottom: 2.2rem; transform: rotate(-1.8deg); transform-origin: left bottom;
+}
+h2 { font-size: 1.15rem; font-weight: 800; margin: 2.4rem 0 .6rem; color: var(--accent); }
+h3 { font-size: 1rem; font-weight: 700; margin: 1.4rem 0 .4rem; }
+p, ul { margin-bottom: .9rem; }
+ul { padding-left: 1.3rem; }
+li { margin-bottom: .3rem; }
+a { color: var(--ink); text-underline-offset: 4px; }
+a:hover { color: var(--accent); }
+address { font-style: normal; }
+small, .stand { color: var(--muted); font-size: .85rem; }
+/* Platzhalter: bewusst auffällig, damit nichts unausgefüllt online bleibt */
+mark { background: var(--accent); color: #101010; padding: 0 .3em; font-weight: 700; }
+footer { border-top: 1px solid var(--line); padding: 1.6rem 0; color: var(--muted); font-size: .85rem; }
+footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+footer a { color: var(--muted); }
+footer a:hover { color: var(--accent); }

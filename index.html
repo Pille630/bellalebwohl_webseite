@@ -8,9 +8,6 @@
 <link rel="icon" type="image/png" href="favicon.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="preload" href="fonts/knewave-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet" />
 <meta name="description" content="bellalebwohl – Postfolk aus Stuttgart. Ska, Off-Beat, Gypsy, Balkan, Swing & Folkpunk. Kantig, roh & tanzbar!" />
 <style>
   :root {
@@ -28,7 +25,7 @@
     src: url('fonts/knewave-latin-400-normal.woff2') format('woff2');
     font-weight: 400; font-style: normal; font-display: swap;
   }
-  :root { --hand: 'Rock Salt', 'Knewave', 'Segoe Print', 'Bradley Hand', cursive; }
+  :root { --hand: 'Knewave', 'Segoe Print', 'Bradley Hand', cursive; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -85,8 +82,8 @@
   }
   h2 {
     font-family: var(--hand);
-    font-size: clamp(1.4rem, 3.6vw, 2.2rem); line-height: 1.35;
-    font-weight: 400; letter-spacing: .02em; text-transform: lowercase;
+    font-size: clamp(1.9rem, 5vw, 3rem); line-height: 1.15;
+    font-weight: 400; letter-spacing: .01em; text-transform: lowercase;
     transform: rotate(-1.8deg); transform-origin: left bottom;   /* leicht schräg, wie aufgeklebt */
   }
   .two-col { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: start; }
@@ -191,6 +188,22 @@
     background: var(--panel); border: 1px solid var(--line);
   }
   .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  /* 2-Klick-Lösung: YouTube wird erst nach Klick geladen (Datenschutz) */
+  .video-consent {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: .9rem; padding: 1.2rem; text-align: center;
+  }
+  .video-consent .vc-title { font-family: var(--hand); font-size: clamp(1.3rem, 3.5vw, 1.9rem); }
+  .video-consent .vc-text { max-width: 36em; color: var(--muted); font-size: .88rem; line-height: 1.5; }
+  .video-consent .vc-text a, .video-consent .vc-link { color: var(--muted); text-underline-offset: 4px; }
+  .video-consent .vc-text a:hover, .video-consent .vc-link:hover { color: var(--accent); }
+  .video-consent .vc-link { font-size: .85rem; }
+  @media (max-width: 640px) {
+    .video-consent { gap: .55rem; padding: .8rem; }
+    .video-consent .vc-text { font-size: .75rem; line-height: 1.4; }
+    .video-consent .btn { padding: .55rem 1.3rem; }
+  }
 
   /* ---------- galerie ---------- */
   /* Collage: Fotos behalten ihr Format, sitzen versetzt und leicht schräg */
@@ -367,15 +380,16 @@
           <span>Instagram</span>
         </a>
       </div>
-      <!-- Video: YouTube (73_HiXn36Ow) — einfach die URL im src austauschen, um ein anderes Video zu zeigen -->
-      <div class="video-wrap">
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/73_HiXn36Ow?rel=0"
-          title="bellalebwohl auf YouTube"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen></iframe>
+      <!-- Video: YouTube, erst nach Klick geladen (2-Klick-Lösung, DSGVO).
+           Anderes Video zeigen: nur die ID bei data-video-id austauschen
+           (steht in der YouTube-Adresse hinter v=). -->
+      <div class="video-wrap" id="video-wrap" data-video-id="73_HiXn36Ow">
+        <div class="video-consent">
+          <p class="vc-title">Video von YouTube</p>
+          <p class="vc-text">Beim Laden des Videos wird eine Verbindung zu YouTube (Google) hergestellt. Dabei können Daten wie deine IP-Adresse übertragen werden. Mehr dazu in der <a href="datenschutz.html#youtube">Datenschutzerklärung</a>.</p>
+          <button class="btn solid" id="video-load" type="button">Video laden</button>
+          <a class="vc-link" id="video-link" href="https://www.youtube.com/@bellalebwohl9544" target="_blank" rel="noopener noreferrer">oder direkt auf YouTube ansehen ↗</a>
+        </div>
       </div>
     </div>
   </section>
@@ -495,8 +509,8 @@
   <div class="container">
     <span>© 2026 bellalebwohl</span>
     <span>
-      <a href="#">Impressum</a> ·
-      <a href="#">Datenschutz</a>
+      <a href="impressum.html">Impressum</a> ·
+      <a href="datenschutz.html">Datenschutz</a>
     </span>
   </div>
 </footer>
@@ -597,6 +611,24 @@
       const dx = e.changedTouches[0].clientX - x0;
       if (Math.abs(dx) > 50) show(dx < 0 ? idx + 1 : idx - 1);
       x0 = null;
+    });
+  })();
+  /* ---------- Video erst nach Klick laden (2-Klick-Lösung) ---------- */
+  (function () {
+    const wrap = document.getElementById("video-wrap");
+    const btn = document.getElementById("video-load");
+    const link = document.getElementById("video-link");
+    if (!wrap || !btn) return;
+    const id = wrap.dataset.videoId;
+    if (link) link.href = "https://www.youtube.com/watch?v=" + encodeURIComponent(id);
+    btn.addEventListener("click", () => {
+      const f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?rel=0&autoplay=1";
+      f.title = "bellalebwohl auf YouTube";
+      f.referrerPolicy = "strict-origin-when-cross-origin";
+      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      f.allowFullscreen = true;
+      wrap.replaceChildren(f);
     });
   })();
 </script>
