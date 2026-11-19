@@ -66,7 +66,10 @@
   .nav { display: flex; flex-direction: column; align-items: center; gap: .8rem; padding: 1.1rem 0 1rem; }
   .nav ul { display: flex; list-style: none; gap: 1.8rem; }
   .nav ul a { display: inline-block; transition: color .15s, transform .15s; text-decoration: none; font-size: .8rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+  .nav ul { align-items: center; }
   .nav ul a:hover { color: var(--accent); }
+  .nav-logo a { display: block; line-height: 0; }
+  .nav-logo img { height: 34px; width: auto; display: block; }
 
   /* ---------- hero ---------- */
   .hero { padding: 5rem 0 5rem; text-align: center; }
@@ -315,6 +318,9 @@
     .hero { padding: 4.5rem 0 3.5rem; }
     .nav ul { gap: .3rem .85rem; flex-wrap: wrap; justify-content: center; padding: 0 .8rem; }
     .nav ul a { font-size: .78rem; letter-spacing: .05em; display: inline-block; padding: .5rem .1rem; }
+    .nav ul { gap: .3rem .6rem; padding: 0 .4rem; }
+    .nav ul a { font-size: .72rem; letter-spacing: .03em; }
+    .nav-logo img { height: 28px; }
     h2 { transform: rotate(-1.2deg); }
   }
   /* ============================================================
@@ -382,6 +388,7 @@
   <div class="container nav">
     <nav>
       <ul>
+        <li class="nav-logo"><a href="#" aria-label="bellalebwohl – nach oben"><img src="logo.png" alt="" width="34" height="34" /></a></li>
         <li><a href="#band">Band</a></li>
         <li><a href="#musik">Musik</a></li>
         <!-- Galerie derzeit verborgen; zum Aktivieren diese Zeile wieder einkommentieren:
