@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="bellalebwohl" />
 <meta property="og:locale" content="de_DE" />
 <meta property="og:title" content="BELLALEBWOHL – Ska &amp; Folkpunk aus Stuttgart" />
-<meta property="og:description" content="Kantig, roh &amp; tanzbar! Musik, Live-Termine und Booking." />
+<meta property="og:description" content="bellalebwohl – Ska &amp; Folkpunk aus Stuttgart. Ska Band Stuttgart: kantig, roh &amp; tanzbar! Musik, Live-Termine und Booking." />
 <meta property="og:url" content="https://www.bellalebwohl.de/" />
 <meta property="og:image" content="https://www.bellalebwohl.de/vorschau.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -426,7 +426,7 @@
     <h1 class="hero-title reveal"><img class="hero-logo" src="logo.png" alt="bellalebwohl" /></h1>
     <p class="sub reveal">
       Raue Texte, Weltschmerz aus der Seele geschrien — und daneben eine
-      <strong>tanzwütige Partystimmung</strong>. 8 Stuttgarter, die Kneipenchöre,
+      tanzwütige Partystimmung. 8 Stuttgarter, die Kneipenchöre,
       Hymnen und Ohrwürmer liefern. Kantig, roh &amp; tanzbar.
     </p>
     <div class="cta-row">
@@ -450,7 +450,6 @@
         </div>
         <div>
           <img class="bandphoto" src="bandfoto.jpg" alt="bellalebwohl Bandfoto" tabindex="0" role="button" aria-label="Bandfoto vergrößern" />
-          <p class="photo-note">bellalebwohl — 2025</p>
         </div>
       </div>
     </div>
@@ -771,9 +770,9 @@
       el.style.setProperty("--d", Math.min(sibs.indexOf(el) * 0.09, 0.45) + "s");
     });
     // Startbereich: eine Verzögerung pro Element, damit alles nacheinander aufgebaut wird
-    [".hero .kicker .k:nth-child(1)", ".hero .kicker .k:nth-child(2)", ".hero .kicker .k:nth-child(3)",
-     ".hero .hero-title", ".hero .sub", ".hero .btn.solid", ".hero .btn.line"]
-      .forEach((sel, i) => { const el = document.querySelector(sel); if (el) el.style.setProperty("--d", [0.05, 0.15, 0.27, 0.45, 0.8, 0.95, 1.05][i] + "s"); });
+    [".hero .hero-title", ".hero .kicker .k:nth-child(1)", ".hero .kicker .k:nth-child(2)", ".hero .kicker .k:nth-child(3)",
+     ".hero .sub", ".hero .btn.solid", ".hero .btn.line"]
+      .forEach((sel, i) => { const el = document.querySelector(sel); if (el) el.style.setProperty("--d", [0.05, 0.55, 0.65, 0.77, 0.95, 1.1, 1.2][i] + "s"); });
     function show(el) {
       el.classList.add("in");
       // nach der Animation Hilfsklassen entfernen, damit Hover & Co. normal laufen
