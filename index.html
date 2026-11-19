@@ -64,6 +64,7 @@
     color: var(--accent); font-size: .8rem; letter-spacing: .25em;
     text-transform: uppercase; margin-bottom: 1.2rem;
   }
+  .hero .kicker .k { display: inline-block; }
   .hero p.sub {
     margin: 1.8rem auto 0; max-width: 36em;
     color: var(--muted); font-size: 1.08rem;
@@ -388,7 +389,7 @@
      01 HERO — Startbereich: Logo, Kurztext, Buttons
      ============================================================ -->
 <div class="hero container">
-    <p class="kicker reveal">SKA · FOLKPUNK · Stuttgart</p>
+    <p class="kicker"><span class="k reveal">SKA</span> <span class="k reveal">·</span> <span class="k reveal">FOLKPUNK</span></p>
     <!-- Logo: echte Datei logo.png (im Repo neben der index.html ablegen) -->
     <h1 class="hero-title reveal"><img class="hero-logo" src="logo.png" alt="bellalebwohl" /></h1>
     <p class="sub reveal">
@@ -721,8 +722,9 @@
       el.style.setProperty("--d", Math.min(sibs.indexOf(el) * 0.09, 0.45) + "s");
     });
     // Startbereich: eine Verzögerung pro Element, damit alles nacheinander aufgebaut wird
-    [".hero .kicker", ".hero .hero-title", ".hero .sub", ".hero .btn.solid", ".hero .btn.line"]
-      .forEach((sel, i) => { const el = document.querySelector(sel); if (el) el.style.setProperty("--d", [0.05, 0.2, 0.65, 0.85, 0.97][i] + "s"); });
+    [".hero .kicker .k:nth-child(1)", ".hero .kicker .k:nth-child(2)", ".hero .kicker .k:nth-child(3)",
+     ".hero .hero-title", ".hero .sub", ".hero .btn.solid", ".hero .btn.line"]
+      .forEach((sel, i) => { const el = document.querySelector(sel); if (el) el.style.setProperty("--d", [0.05, 0.15, 0.27, 0.45, 0.8, 0.95, 1.05][i] + "s"); });
     function show(el) {
       el.classList.add("in");
       // nach der Animation Hilfsklassen entfernen, damit Hover & Co. normal laufen
