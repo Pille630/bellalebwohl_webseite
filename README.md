@@ -24,3 +24,7 @@ One-Page-Website der Band bellalebwohl (Ska & Folkpunk, Stuttgart). Reines HTML/
 - **Termine:** In `index.html` die Liste `TERMINE` bearbeiten (Datum `TT.MM.JJJJ`, Zeit, Ort, Info, Tag, optional Link). Vergangene Termine verschwinden automatisch.
 - **Video auf der Seite:** In `index.html` bei `data-video-id` die YouTube-ID austauschen.
 - **Galerie einblenden:** In `index.html` beim Abschnitt `id="galerie"` das Wort `hidden` entfernen.
+
+## Kontakt
+
+Booking & allgemeine Anfragen: **kontakt@bellalebwohl.de**
