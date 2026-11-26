@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8" />
+<script>if(location.protocol.indexOf('http')===0&&/\.html$/.test(location.pathname))history.replaceState(null,'',location.pathname.replace(/(index)?\.html$/,'')+location.search+location.hash)</script>
 <script>
   /* Aufbau-Animation nur, wenn der Browser sie kann und "Bewegung reduzieren" nicht aktiv ist */
   if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -513,7 +514,7 @@
       <div class="video-wrap" id="video-wrap" data-video-id="73_HiXn36Ow">
         <div class="video-consent">
           <p class="vc-title">Video von YouTube</p>
-          <p class="vc-text">Beim Laden des Videos wird eine Verbindung zu YouTube (Google) hergestellt. Dabei können Daten wie deine IP-Adresse übertragen werden. Mehr dazu in der <a href="datenschutz.html#youtube">Datenschutzerklärung</a>.</p>
+          <p class="vc-text">Beim Laden des Videos wird eine Verbindung zu YouTube (Google) hergestellt. Dabei können Daten wie deine IP-Adresse übertragen werden. Mehr dazu in der <a href="/datenschutz#youtube">Datenschutzerklärung</a>.</p>
           <button class="btn solid" id="video-load" type="button">Video laden</button>
           <a class="vc-link" id="video-link" href="https://www.youtube.com/@bellalebwohl9544" target="_blank" rel="noopener noreferrer">oder direkt auf YouTube ansehen ↗</a>
         </div>
@@ -645,8 +646,8 @@
   <div class="container">
     <span>© 2026 bellalebwohl</span>
     <span>
-      <a href="impressum.html">Impressum</a> ·
-      <a href="datenschutz.html">Datenschutz</a>
+      <a href="/impressum">Impressum</a> ·
+      <a href="/datenschutz">Datenschutz</a>
     </span>
   </div>
 </footer>
