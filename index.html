@@ -208,6 +208,16 @@
     background: var(--panel);
     text-align: center;
   }
+  /* Unscharfes Bandfoto hinter dem Zitat: blur = Unschärfe, rgba-Wert = Abdunklung */
+  .statement { position: relative; overflow: hidden; isolation: isolate; }
+  .statement::before, .statement::after { content: ""; position: absolute; pointer-events: none; }
+  .statement::before {
+    inset: -16px; z-index: -2;
+    background: url("zitat-hintergrund.jpg") center 30% / cover no-repeat;
+    filter: blur(2.5px);
+  }
+  .statement::after { inset: 0; z-index: -1; background: rgba(0, 0, 0, .62); }
+  .statement p { text-shadow: 0 2px 14px rgba(0, 0, 0, .75); }
   .statement p {
     font-size: clamp(1.4rem, 4vw, 2.4rem);
     font-weight: 800; letter-spacing: -.02em; line-height: 1.25;
