@@ -843,5 +843,30 @@
   })();
 </script>
 
+<script>
+  /* Sprunglinks scrollen zum Abschnitt, ohne "#..." in die Adresszeile zu schreiben */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var id = a.getAttribute("href").slice(1);
+    var ziel = id ? document.getElementById(id) : document.body;
+    if (!ziel) return;
+    e.preventDefault();
+    if (id) ziel.scrollIntoView(); else window.scrollTo(0, 0);
+    /* Tastatur und Screenreader springen mit */
+    if (!ziel.hasAttribute("tabindex")) {
+      ziel.setAttribute("tabindex", "-1");
+      ziel.style.outline = "none";
+    }
+    ziel.focus({ preventScroll: true });
+  });
+  /* Aufruf von außen, z. B. /#termine: erst hinspringen, dann Adresse säubern */
+  window.addEventListener("load", function () {
+    if (!location.hash) return;
+    var ziel = document.getElementById(location.hash.slice(1));
+    if (ziel) ziel.scrollIntoView();
+    if (location.protocol.indexOf("http") === 0) history.replaceState(null, "", location.pathname + location.search);
+  });
+</script>
 </body>
 </html>
