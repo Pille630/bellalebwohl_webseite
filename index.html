@@ -538,7 +538,7 @@
   </section>
 
 <!-- ============================================================
-     04 GALERIE — 7 Fotos (zum Verbergen "hidden" an die Sektion schreiben + Nav-Link auskommentieren)
+     04 GALERIE — Plätze galerie1.jpg bis galerie20.jpg, fehlende Dateien werden ausgeblendet (zum Verbergen "hidden" an die Sektion schreiben + Nav-Link auskommentieren)
      Foto tauschen: Datei galerie1.jpg ... galerie6.jpg auf GitHub
      hochladen (Add file → Upload files) und die alte Datei ersetzen.
      Fehlt eine Datei, wird die Box automatisch ausgeblendet.
@@ -557,6 +557,19 @@
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 5 vergrößern"><img src="galerie5.jpg" alt="bellalebwohl Galerie 5" onerror="this.parentNode.style.display='none'" /></figure>
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 6 vergrößern"><img src="galerie6.jpg" alt="bellalebwohl Galerie 6" onerror="this.parentNode.style.display='none'" /></figure>
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 7 vergrößern"><img src="galerie7.jpg" alt="bellalebwohl Galerie 7" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 8 vergrößern"><img src="galerie8.jpg" alt="bellalebwohl Galerie 8" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 9 vergrößern"><img src="galerie9.jpg" alt="bellalebwohl Galerie 9" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 10 vergrößern"><img src="galerie10.jpg" alt="bellalebwohl Galerie 10" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 11 vergrößern"><img src="galerie11.jpg" alt="bellalebwohl Galerie 11" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 12 vergrößern"><img src="galerie12.jpg" alt="bellalebwohl Galerie 12" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 13 vergrößern"><img src="galerie13.jpg" alt="bellalebwohl Galerie 13" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 14 vergrößern"><img src="galerie14.jpg" alt="bellalebwohl Galerie 14" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 15 vergrößern"><img src="galerie15.jpg" alt="bellalebwohl Galerie 15" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 16 vergrößern"><img src="galerie16.jpg" alt="bellalebwohl Galerie 16" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 17 vergrößern"><img src="galerie17.jpg" alt="bellalebwohl Galerie 17" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 18 vergrößern"><img src="galerie18.jpg" alt="bellalebwohl Galerie 18" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 19 vergrößern"><img src="galerie19.jpg" alt="bellalebwohl Galerie 19" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 20 vergrößern"><img src="galerie20.jpg" alt="bellalebwohl Galerie 20" onerror="this.parentNode.style.display='none'" /></figure>
       </div>
     </div>
     <button class="film-toggle" type="button" hidden>Anhalten</button>
@@ -927,6 +940,8 @@
       }, PAUSE);
     }
     function blaettern(r) { zeige(r); takt(); }
+    /* fehlt das erste Bild, beim nächsten vorhandenen beginnen */
+    addEventListener("load", function () { if (aktiv.style.display === "none") zeige(1); });
     [["zurueck", -1, "Voriges Foto", "\u2039"], ["weiter", 1, "Nächstes Foto", "\u203a"]].forEach(function (d) {
       var k = document.createElement("button");
       k.type = "button"; k.className = "film-pfeil " + d[0]; k.setAttribute("aria-label", d[2]); k.textContent = d[3];
