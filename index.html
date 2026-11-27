@@ -279,35 +279,17 @@
     .video-consent .btn { padding: .55rem 1.3rem; }
   }
 
-  /* ---------- galerie ---------- */
-  /* Collage: Fotos behalten ihr Format, sitzen versetzt und leicht schräg */
-  .gallery { column-count: 3; column-gap: 1.8rem; padding: .8rem .4rem 0; }
-  .gallery .shot {
-    --r: 0deg;
-    display: block; break-inside: avoid;
-    margin: 0 0 1.8rem;
-    background: var(--ink);            /* "Papierrand" um jedes Foto */
-    padding: .5rem;
-    box-shadow: 6px 6px 0 #101010;     /* harter Schatten, kantig & roh */
-    transform: rotate(var(--r));
-    transition: transform .22s ease, box-shadow .22s ease;
-    cursor: zoom-in;
-  }
-  .gallery .shot:nth-child(6n+1) { --r: -2.2deg; }
-  .gallery .shot:nth-child(6n+2) { --r:  1.6deg; }
-  .gallery .shot:nth-child(6n+3) { --r: -1.2deg; }
-  .gallery .shot:nth-child(6n+4) { --r:  2.1deg; }
-  .gallery .shot:nth-child(6n+5) { --r: -1.8deg; }
-  .gallery .shot:nth-child(6n+6) { --r:  1.3deg; }
-  .gallery .shot:hover, .gallery .shot:focus-visible {
-    transform: rotate(0deg) scale(1.04);
-    box-shadow: 10px 10px 0 #101010;
-    position: relative; z-index: 2;
-    outline: none;
-  }
-  .gallery .shot img { width: 100%; height: auto; display: block; }
-  .gallery .shot.wide { column-span: all; --r: -.7deg; }  /* Panoramafoto über die ganze Breite */
-
+  /* ---------- live: laufender Filmstreifen ---------- */
+  #galerie { overflow: hidden; }
+  .film-band { margin: 1.6rem -2vw 0; rotate: -1.6deg; background: #101010; padding: .7rem 0; }
+  .gallery { display: flex; gap: .7rem; overflow-x: auto; scrollbar-width: none; cursor: grab; }
+  .gallery::-webkit-scrollbar { display: none; }
+  .gallery figure { flex: none; margin: 0; height: clamp(220px, 32vw, 420px); cursor: zoom-in; overflow: hidden; }
+  .gallery figure img { height: 100%; width: auto; max-width: none; display: block; transition: scale .35s ease; }
+  .gallery figure:hover img { scale: 1.04; }
+  .gallery .shot:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+  .film-toggle { display: block; margin: 1.8rem auto 0; background: none; border: 2px solid #101010; color: #101010;
+    font: inherit; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; padding: .45rem 1rem; cursor: pointer; }
   /* Lightbox */
   .lightbox {
     position: fixed; inset: 0; z-index: 100;
@@ -327,7 +309,7 @@
   .lightbox .lb-prev  { left: .4rem;  top: 50%; transform: translateY(-50%); }
   .lightbox .lb-next  { right: .4rem; top: 50%; transform: translateY(-50%); }
   @media (prefers-reduced-motion: reduce) {
-    .gallery .shot { transition: none; }
+    .gallery figure img { transition: none; }
   }
 
   /* ---------- folge uns ---------- */
@@ -358,8 +340,6 @@
   .yellow .mail-big:hover { color: #101010; opacity: .7; }
 
   @media (max-width: 760px) {
-    .gallery { column-count: 2; column-gap: 1.2rem; padding: .5rem .3rem 0; }
-    .gallery .shot { margin-bottom: 1.2rem; padding: .35rem; box-shadow: 4px 4px 0 #101010; }
     .bandphoto { padding: .35rem; box-shadow: 4px 4px 0 #101010; }
     .lightbox { padding: 1rem; }
     .two-col, .contact-inner { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -448,7 +428,7 @@
         <li class="nav-logo"><a href="#" aria-label="bellalebwohl – nach oben"><img src="logo.png" alt="" width="34" height="34" /></a></li>
         <li><a href="#band">Band</a></li>
         <li><a href="#musik">Musik</a></li>
-        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#galerie">Live</a></li>
         <li><a href="#termine">Termine</a></li>
         <li><a href="#kontakt">Booking</a></li>
         <li><a href="#presse">Presse</a></li>
@@ -553,9 +533,11 @@
      ============================================================ -->
 <section id="galerie" class="yellow">
     <div class="container">
-      <div class="sec-head"><span class="sec-num">04</span><h2>galerie</h2></div>
+      <div class="sec-head"><span class="sec-num">04</span><h2>live</h2></div>
+    </div>
+    <div class="film-band">
       <div class="gallery">
-        <figure class="shot wide" tabindex="0" role="button" aria-label="Foto 1 vergrößern"><img src="galerie1.jpg" alt="bellalebwohl Galerie 1" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot" tabindex="0" role="button" aria-label="Foto 1 vergrößern"><img src="galerie1.jpg" alt="bellalebwohl Galerie 1" onerror="this.parentNode.style.display='none'" /></figure>
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 2 vergrößern"><img src="galerie2.jpg" alt="bellalebwohl Galerie 2" onerror="this.parentNode.style.display='none'" /></figure>
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 3 vergrößern"><img src="galerie3.jpg" alt="bellalebwohl Galerie 3" onerror="this.parentNode.style.display='none'" /></figure>
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 4 vergrößern"><img src="galerie4.jpg" alt="bellalebwohl Galerie 4" onerror="this.parentNode.style.display='none'" /></figure>
@@ -563,6 +545,7 @@
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 6 vergrößern"><img src="galerie6.jpg" alt="bellalebwohl Galerie 6" onerror="this.parentNode.style.display='none'" /></figure>
       </div>
     </div>
+    <button class="film-toggle" type="button" hidden>Anhalten</button>
   </section>
 
 <!-- Lightbox: Klick auf ein Galeriefoto zeigt es groß -->
@@ -883,6 +866,47 @@
     if (ziel) ziel.scrollIntoView();
     if (location.protocol.indexOf("http") === 0) history.replaceState(null, "", location.pathname + location.search);
   });
+</script>
+<script>
+  /* Filmstreifen: läuft von selbst, hält bei Maus, Finger oder Tastatur an */
+  (function () {
+    var streifen = document.querySelector(".gallery"), knopf = document.querySelector(".film-toggle");
+    if (!streifen || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var TEMPO = 40; /* Pixel pro Sekunde */
+    var originale = [].slice.call(streifen.querySelectorAll(".shot"));
+    if (!originale.length) return;
+    /* Kopien hinten anhängen, damit der Streifen endlos läuft */
+    var kopien = originale.map(function (o) {
+      var k = o.cloneNode(true);
+      k.classList.remove("shot");
+      ["tabindex", "role", "aria-label"].forEach(function (a) { k.removeAttribute(a); });
+      k.setAttribute("aria-hidden", "true");
+      k.addEventListener("click", function () { o.click(); });
+      return streifen.appendChild(k);
+    });
+    var pos = 0, vorher = 0, maus = false, finger = false, aus = false, weiterAb = 0;
+    streifen.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") maus = true; });
+    streifen.addEventListener("pointerleave", function () { maus = false; });
+    streifen.addEventListener("touchstart", function () { finger = true; }, { passive: true });
+    ["touchend", "touchcancel"].forEach(function (n) {
+      streifen.addEventListener(n, function () { finger = false; weiterAb = performance.now() + 2500; });
+    });
+    knopf.hidden = false;
+    knopf.addEventListener("click", function () { aus = !aus; knopf.textContent = aus ? "Abspielen" : "Anhalten"; });
+    function schritt(t) {
+      var dt = Math.min(t - (vorher || t), 100) / 1000; vorher = t;
+      var offen = document.querySelector(".lightbox.open");
+      if (Math.abs(streifen.scrollLeft - pos) > 2) pos = streifen.scrollLeft; /* selbst gescrollt */
+      if (!maus && !finger && !aus && !offen && t > weiterAb && !streifen.contains(document.activeElement)) {
+        var runde = kopien[0].offsetLeft - originale[0].offsetLeft;
+        pos += TEMPO * dt;
+        if (runde > 0 && pos >= runde) pos -= runde;
+        streifen.scrollLeft = pos;
+      }
+      requestAnimationFrame(schritt);
+    }
+    requestAnimationFrame(schritt);
+  })();
 </script>
 </body>
 </html>
