@@ -306,6 +306,7 @@
     outline: none;
   }
   .gallery .shot img { width: 100%; height: auto; display: block; }
+  .gallery .shot.wide { column-span: all; --r: -.7deg; }  /* Panoramafoto über die ganze Breite */
 
   /* Lightbox */
   .lightbox {
@@ -372,6 +373,12 @@
     .nav ul a { font-size: .72rem; letter-spacing: .03em; }
     .nav-logo img { height: 28px; }
     h2 { transform: rotate(-1.2deg); }
+  }
+  /* schmale Handys: Menü in einer Zeile halten */
+  @media (max-width: 480px) {
+    .nav ul { gap: .3rem clamp(.2rem, 1.6vw, .5rem); padding: 0 .3rem; }
+    .nav ul a { font-size: clamp(.6rem, 2.75vw, .72rem); letter-spacing: 0; }
+    .nav-logo img { height: 24px; }
   }
   /* ============================================================
      BEWEGUNG — Einblenden, Zittern, Hover
@@ -441,9 +448,7 @@
         <li class="nav-logo"><a href="#" aria-label="bellalebwohl – nach oben"><img src="logo.png" alt="" width="34" height="34" /></a></li>
         <li><a href="#band">Band</a></li>
         <li><a href="#musik">Musik</a></li>
-        <!-- Galerie derzeit verborgen; zum Aktivieren diese Zeile wieder einkommentieren:
         <li><a href="#galerie">Galerie</a></li>
-        -->
         <li><a href="#termine">Termine</a></li>
         <li><a href="#kontakt">Booking</a></li>
         <li><a href="#presse">Presse</a></li>
@@ -540,17 +545,17 @@
   </section>
 
 <!-- ============================================================
-     04 GALERIE — 6 Fotos (DERZEIT VERBORGEN: zum Anzeigen hidden an der Sektion entfernen + Nav-Link einkommentieren)
+     04 GALERIE — 6 Fotos (zum Verbergen "hidden" an die Sektion schreiben + Nav-Link auskommentieren)
      Foto tauschen: Datei galerie1.jpg ... galerie6.jpg auf GitHub
      hochladen (Add file → Upload files) und die alte Datei ersetzen.
      Fehlt eine Datei, wird die Box automatisch ausgeblendet.
      Die Fotos dürfen Hoch- oder Querformat sein, nichts wird beschnitten.
      ============================================================ -->
-<section id="galerie" class="yellow" hidden>
+<section id="galerie" class="yellow">
     <div class="container">
       <div class="sec-head"><span class="sec-num">04</span><h2>galerie</h2></div>
       <div class="gallery">
-        <figure class="shot" tabindex="0" role="button" aria-label="Foto 1 vergrößern"><img src="galerie1.jpg" alt="bellalebwohl Galerie 1" onerror="this.parentNode.style.display='none'" /></figure>
+        <figure class="shot wide" tabindex="0" role="button" aria-label="Foto 1 vergrößern"><img src="galerie1.jpg" alt="bellalebwohl Galerie 1" onerror="this.parentNode.style.display='none'" /></figure>
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 2 vergrößern"><img src="galerie2.jpg" alt="bellalebwohl Galerie 2" onerror="this.parentNode.style.display='none'" /></figure>
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 3 vergrößern"><img src="galerie3.jpg" alt="bellalebwohl Galerie 3" onerror="this.parentNode.style.display='none'" /></figure>
         <figure class="shot" tabindex="0" role="button" aria-label="Foto 4 vergrößern"><img src="galerie4.jpg" alt="bellalebwohl Galerie 4" onerror="this.parentNode.style.display='none'" /></figure>
